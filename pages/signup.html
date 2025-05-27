@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="flex flex-col justify-center items-center mt-6">
+      <!-- TODO: add logo here -->
+      <h1>Sign Up to Examy</h1>
+    </div>
+    <form>
+      <div class="flex flex-col justify-center items-center gap-4">
+        <div>
+          <label for="email">Email</label>
+          <div
+            class="relative flex items-center text-gray-400 focus-within:text-gray-600"
+          >
+            <i
+              class="fa-solid fa-envelope absolute ml-4 pointer-events-none"
+            ></i>
+            <input
+              class="block bg-gray-100 p-1 rounded-lg placeholder:text-xs placeholder:tracking-wide"
+              type="text"
+              placeholder="Enter your email address"
+              name="emai"
+            />
+          </div>
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input
+            class="block bg-gray-100 p-1 rounded-lg placeholder:text-xs placeholder:tracking-wide"
+            type="text"
+            placeholder="Enter your password"
+            name="password"
+          />
+        </div>
+        <div>
+          <label for="confirm">Confirm your password</label>
+          <input
+            class="block bg-gray-100 p-1 rounded-lg placeholder:text-xs placeholder:tracking-wide"
+            type="text"
+            placeholder="Enter your password again"
+            name="confirm"
+          />
+        </div>
+        <button>Sign Up</button>
+      </div>
+    </form>
+    <div class="flex flex-col items-center">
+      <div class="grid grid-cols-3 items-center text-gray-400 w-dvw">
+        <hr class="border-gray-400" />
+        <p class="text-center">or</p>
+        <hr class="border-gray-400" />
+      </div>
+      <p class="inline-block">
+        Already have an account? <a href="../index.html"> sing in </a>
+      </p>
+    </div>
+  </body>
+</html>
