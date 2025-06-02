@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="flex justify-center items-center h-screen w-screen bg-green-50">
+      <div
+        class="rounded-lg flex flex-col items-center gap-12 w-full sm:w-4/5 sm:shadow-gray-500 sm:shadow-lg"
+      >
+        <div
+          class="py-2 bg-accent px-8 w-full flex flex-row justify-between items-center shadow-lg shadow-gray-300 rounded-t-lg"
+        >
+          <p
+            id="timer"
+            class="animate-pulse duration-[9000ms] text-2xl font-semibold text-white"
+          ></p>
+          <p id="exam_title" class="text-2xl font-semibold text-white"></p>
+          <button>
+            <i
+              id="flag"
+              class="fa-solid fa-flag font-bold text-lg text-white cursor-pointer hover:text-orange-500 focus:outline-none transition-all duration-200"
+            ></i>
+          </button>
+        </div>
+        <div id="question" class="px-8 w-full">
+          <p
+            id="question_title"
+            class="font-semibold text-2xl text-gray-900"
+          ></p>
+          <div id="answers" class="px-8 w-full"></div>
+        </div>
+        <div class="flex flex-col gap-8 mb-8">
+          <div
+            class="flex flex-row justify-center items-center gap-8 rounded-lg shadow-md"
+          >
+            <button
+              id="prev"
+              type="button"
+              class="rounded-l-lg bg-accent hover:bg-accent-darker hover:cursor-pointer px-2 text-white font-semibold text-2xl transition-colors duration-200"
+            >
+              <
+            </button>
+            <div>
+              <p id="question_number" class="text-2xl text-gray-900 font-bold">
+                3
+              </p>
+            </div>
+            <button
+              id="next"
+              type="button"
+              class="rounded-r-lg bg-accent hover:bg-accent-darker hover:cursor-pointer px-2 text-white font-semibold text-2xl transition-colors duration-200"
+            >
+              >
+            </button>
+          </div>
+          <div id="navigator" class="flex flex-row justify-center gap-3"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../js/main.js"></script>
+  </body>
+</html>
