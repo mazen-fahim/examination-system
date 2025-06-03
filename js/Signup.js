@@ -88,6 +88,4 @@ class UI {
   }
 }
 
-console.log("hi");
-
 let ui = new UI();
