@@ -3,11 +3,187 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
   </head>
-  <a href="pages/exam.html">EXAM</a>
-  <a href="pages/signup.html">SIGNUP</a>
-  <body class="flex flex-col flex-wrap justify-center align-middle">
-    <script type="module" src="js/main.js"></script>
+  <body>
+    <main class="w-svw h-svh flex justify-center items-center bg-emerald-50">
+      <div class="w-2/3">
+        <div
+          class="w-full parent grid grid-cols-1 md:grid-cols-2 rounded-lg overflow-hidden shadow-lg shadow-gray-700"
+        >
+          <section
+            class="hidden md:block bg-green-100 p-0 rounded-l-lg relative"
+          >
+            <div
+              id="carousel"
+              class="snap-x snap-mandatory flex overflow-x-auto scroll-smooth no-scrollbar w-full h-full rounded-l-lg"
+            >
+              <div
+                class="w-full flex-shrink-0 snap-center flex flex-col justify-center items-center gap-4 p-6 text-gray-900"
+              >
+                <img src="./assets/study.svg" class="size-2/3" alt="" />
+                <p class="text-2xl">Exam Mastery Hub</p>
+                <p class="text-center">
+                  Welcome. Continue your awesome learning journey with us.
+                </p>
+              </div>
+              <div
+                class="w-full flex-shrink-0 snap-center flex flex-col justify-center items-center gap-4 p-6 text-gray-900"
+              >
+                <img src="./assets/study.svg" class="size-2/3" alt="" />
+                <p class="text-2xl">Start your journey</p>
+                <p class="text-center">
+                  Learn and develop your skills using our interactive learning
+                  platform.
+                </p>
+              </div>
+              <div
+                class="w-full flex-shrink-0 snap-center flex flex-col justify-center items-center gap-4 p-6 text-gray-900"
+              >
+                <img src="./assets/study.svg" class="size-2/3" alt="" />
+                <p class="text-2xl">Continuous support</p>
+                <p class="text-center">
+                  We are with you step by step untill you achieve success.
+                </p>
+              </div>
+            </div>
+            <!-- indicator dots -->
+            <div
+              class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2"
+              id="dots"
+            >
+              <span class="w-2 h-2 bg-gray-400 rounded-full opacity-50"></span>
+              <span class="w-2 h-2 bg-gray-400 rounded-full opacity-50"></span>
+              <span class="w-2 h-2 bg-gray-400 rounded-full opacity-50"></span>
+            </div>
+          </section>
+          <section class="flex flex-col gap-4 p-8">
+            <div class="flex flex-col items-center">
+              <!-- TODO: add logo here -->
+              <h1 class="text-gray-900 font-bold text-3xl">
+                Sign in to
+                <span class="text-accent tracking-wide">Examy</span>
+              </h1>
+            </div>
+            <form
+              action=""
+              class="flex flex-col justify-center gap-6"
+              id="form"
+            >
+              <div class="flex flex-col flex-wrap gap-1">
+                <label for="email" class="text-gray-900">Email</label>
+                <div
+                  class="relative flex items-center text-gray-400 focus-within:text-gray-600"
+                >
+                  <i
+                    class="fa-solid fa-envelope absolute end-4 pointer-events-none"
+                  ></i>
+                  <input
+                    class="w-full block bg-gray-100 py-2 px-4 rounded-2xl placeholder:text-xs placeholder:tracking-wide"
+                    type="text"
+                    placeholder="Enter your email address"
+                    id="email"
+                    name="email"
+                  />
+                </div>
+                <p id="email-error" style="color: red; font-size: 14px"></p>
+              </div>
+              <div class="flex flex-col flex-wrap gap-1">
+                <label for="password" class="text-gray-900">Password</label>
+                <div
+                  class="relative flex items-center text-gray-400 focus-within:text-gray-600"
+                >
+                  <i
+                    class="fa-solid fa-eye hover:text-gray-600 absolute end-4 hover:cursor-pointer"
+                  ></i>
+                  <input
+                    class="w-full block bg-gray-100 py-2 px-4 rounded-2xl placeholder:text-xs placeholder:tracking-wide"
+                    type="password"
+                    placeholder="Enter your password"
+                    id="password"
+                    name="password"
+                  />
+                </div>
+                <p id="password-error" style="color: red; font-size: 14px"></p>
+              </div>
+              <a
+                href=""
+                class="font-bold underline underline-offset-2 self-end text-accent hover:text-accent-darker"
+                >Forgot password?</a
+              >
+              <div>
+                <p
+                  id="submit-feedback"
+                  class="text-center text-sm text-orange-500 mb-1"
+                ></p>
+                <input
+                  type="button"
+                  value="submit"
+                  class="hover:bg-accent-darker hover:cursor-pointer text-white font-semibold bg-accent p-4 w-full rounded-3xl text-lg"
+                />
+              </div>
+            </form>
+            <div id="footer" class="mx-auto flex flex-col items-center">
+              <div class="w-full grid grid-cols-5 items-center text-gray-400">
+                <hr class="border-gray-400 col-span-2" />
+                <p class="text-center col-span-1">or</p>
+                <hr class="border-gray-400 col-span-2" />
+              </div>
+              <p class="inline-block text-gray-900">
+                Don't have an account?
+                <span
+                  class="font-bold underline underline-offset-2 text-accent hover:text-accent-darker"
+                  ><a href="./pages/signup.html"> Sign up </a></span
+                >
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script src="./js/auth.js"></script>
+
+    <script>
+      const carousel = document.getElementById("carousel");
+      const dots = document.getElementById("dots").children;
+      let index = 0;
+      const totalSlides = carousel.children.length;
+
+      function updateDots(i) {
+        for (let j = 0; j < dots.length; j++) {
+          dots[j].classList.remove("opacity-100");
+          dots[j].classList.add("opacity-50");
+        }
+        dots[i].classList.remove("opacity-50");
+        dots[i].classList.add("opacity-100");
+      }
+
+      setInterval(() => {
+        index = (index + 1) % totalSlides;
+        carousel.scrollTo({
+          left: carousel.clientWidth * index,
+          behavior: "smooth",
+        });
+        updateDots(index);
+      }, 3000);
+      // ======================================================
+    </script>
   </body>
 </html>
+

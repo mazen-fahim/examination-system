@@ -69,7 +69,6 @@ class App {
 
   set current_question_number(value) {
     this.#question_no = value;
-    console.log(value);
     this.draw();
   }
 
@@ -249,7 +248,6 @@ class App {
     if (this.exam_finished == true) {
       // Draw the mark icon
       let mark_icon = document.querySelector("#mark>i");
-      console.log(mark_icon);
       if (
         this.student_mark_for_current_question == "not answered" ||
         this.student_mark_for_current_question == "wrong"
@@ -263,6 +261,64 @@ class App {
         mark_icon.classList.add("text-accent");
         mark_icon.classList.remove("text-red-500");
         mark_icon.classList.remove("fa-xmark");
+      }
+
+      // Draw the correct wrong answers
+      for (let i = 1; i <= 4; i++) {
+        let label = document.querySelector(`label[for="answer${i}"]`);
+        // correct style
+        if (i == this.current_question_correct_answer) {
+          label.classList.remove(
+            "after:bg-red-500",
+            "after:bg-teal-500",
+            "text-red-500",
+            "text-teal-500",
+            "text-gray-900",
+            "peer-checked:text-teal-500",
+          );
+          label.classList.add("after:w-full", "after:bg-accent", "text-accent");
+        }
+        // wrong style
+        else if (
+          i == this.student_answer_for_current_question &&
+          this.student_mark_for_current_question == "wrong"
+        ) {
+          label.classList.remove(
+            "after:bg-accent",
+            "after:bg-teal-500",
+            "text-accent",
+            "text-teal-500",
+            "text-gray-900",
+            "peer-checked:text-teal-500",
+          );
+          label.classList.add(
+            "after:w-full",
+            "after:bg-red-500",
+            "text-red-500",
+          );
+        }
+        // default style
+        else {
+          label.className =
+            " relative after:transition-all after:duration-200 after:h-2 after:w-0 after:absolute after:bottom-0 after:left-0 after:bg-teal-500 peer-checked:after:w-full peer-checked:text-teal-500 py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-sm peer-checked:shadow-inner";
+        }
+      }
+      if (this.student_mark_for_current_question == "correct") {
+        let student_choice = document.querySelector(
+          `label[for="answer${this.student_answer_for_current_question}"]`,
+        );
+        student_choice.classList.remove("after:bg-teal-500", "text-teal-500");
+        student_choice.classList.add("after:bg-accent", "text-accent");
+      } else if (this.student_mark_for_current_question == "not answered") {
+        document
+          .querySelector(
+            `label[for="answer${this.student_answer_for_current_question}"]`,
+          )
+          .classList.add("after:bg-accent", "text-accent");
+      } else {
+        let student_choice = document.querySelector(
+          `label[for="answer${this.student_answer_for_current_question}"]`,
+        );
       }
 
       // Draw the navigator

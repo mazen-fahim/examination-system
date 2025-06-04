@@ -93,6 +93,7 @@
                     name="email"
                   />
                 </div>
+                <p id="email-error" style="color: rgb(71, 151, 106); font-size: 14px;"></p>
               </div>
               <div class="w-full">
                 <label for="password" class="text-gray-900">Password</label>
@@ -110,19 +111,21 @@
                     name="password"
                   />
                 </div>
+                <p id="password-error" style="color: rgb(71, 151, 106); font-size: 14px;"></p>
               </div>
               <div class="w-full">
-                <label for="confirm" class="text-gray-900"
+                <label for="password-confirm" class="text-gray-900"
                 >Confirm your password</label
                 >
                 <input
                   class="w-full block bg-gray-100 py-2 text-gray-400 focus:text-gray-600 px-4 rounded-2xl placeholder:text-xs placeholder:tracking-wide"
                   type="password"
                   placeholder="Enter your password again"
-                  id="confirm"
-                  name="confirm"
+                  id="password-confirm"
+                  name="password-confirm"
                 />
               </div>
+                <p id="password-confirm-error" style="color: rgb(71, 151, 106); font-size: 14px;"></p>
             </div>
             <button id="signup_button"
               type="button"

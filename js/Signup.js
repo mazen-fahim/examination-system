@@ -89,3 +89,155 @@ class UI {
 }
 
 let ui = new UI();
+
+// Signup Page Validation
+
+// const nameInput = document.getElementById("name");
+// const nameError = document.getElementById("name-error");
+
+const emailInput = document.getElementById("email");
+const emailError = document.getElementById("email-error");
+
+const passwordInput = document.getElementById("password");
+const passwordError = document.getElementById("password-error");
+
+const passwordConfirm = document.getElementById("password-confirm");
+const passwordConfirmError = document.getElementById("password-confirm-error");
+
+// Name validation
+// nameInput.addEventListener("input", () => {
+//   const nameVal = nameInput.value.trim();
+//   const nameReg = /^([a-zA-Z]{3,15})(\s[a-zA-Z]{3,15})*$/;
+//
+//   if (nameVal.length === 0) {
+//     nameError.textContent = "✳️ Name cannot be empty";
+//     nameError.style.color = "red";
+//   } else if (!nameReg.test(nameVal)) {
+//     nameError.textContent =
+//       "✳️ Enter a valid name (at least 3 letters per word, letters only)";
+//     nameError.style.color = "red";
+//   } else if (nameVal.length > 50) {
+//     nameError.textContent = "✳️ Name must not exceed 50 characters";
+//     nameError.style.color = "red";
+//   } else {
+//     nameError.textContent = "✅ Valid name";
+//     nameError.style.color = "green";
+//   }
+// });
+
+// Email validation
+emailInput.addEventListener("input", () => {
+  const email = emailInput.value.trim();
+  if (email.length === 0) {
+    emailError.textContent = "✳️ Email cannot be empty";
+    emailError.style.color = "red";
+  } else if (!/^[a-zA-Z]/.test(email)) {
+    emailError.textContent = "✳️ Email must start with a letter";
+    emailError.style.color = "red";
+  } else if (!/@/.test(email)) {
+    emailError.textContent = "✳️ Email must contain '@'";
+    emailError.style.color = "red";
+  } else {
+    const parts = email.split("@");
+    const localPart = parts[0];
+    const domainPart = parts[1];
+
+    if (localPart.length < 4) {
+      emailError.textContent =
+        "✳️ Email username must be at least 4 characters";
+      emailError.style.color = "red";
+    } else if (!/[0-9]/.test(localPart)) {
+      emailError.textContent =
+        "✳️ Email must contain at least one number before '@'";
+      emailError.style.color = "red";
+    } else if (!/\w+\.(com|net|org|edu(\.eg)?|gov|info)$/.test(domainPart)) {
+      emailError.textContent =
+        "✳️ Email must have a valid domain like gmail.com or edu.eg";
+      emailError.style.color = "red";
+    } else {
+      emailError.textContent = "✅ Valid email";
+      emailError.style.color = "green";
+    }
+  }
+});
+
+// Password validation
+passwordInput.addEventListener("input", () => {
+  const pwd2 = passwordInput.value;
+
+  if (pwd2.length === 0) {
+    passwordError.textContent = "✳️ Password cannot be empty";
+    passwordError.style.color = "red";
+  } else if (pwd2.length < 8) {
+    passwordError.textContent =
+      "✳️ Password must be at least 8 characters long";
+    passwordError.style.color = "red";
+  } else if (!hasEnoughLowerCase(pwd2)) {
+    passwordError.textContent =
+      "✳️ Password must contain at least 4 lowercase letters";
+    passwordError.style.color = "red";
+  } else if (!hasUpperCase(pwd2)) {
+    passwordError.textContent =
+      "✳️ Password must contain at least 1 uppercase letter";
+    passwordError.style.color = "red";
+  } else if (!hasEnoughDigits(pwd2)) {
+    passwordError.textContent = "✳️ Password must contain at least 3 digits";
+    passwordError.style.color = "red";
+  } else if (!hasSpecialCharacter(pwd2)) {
+    passwordError.textContent =
+      "✳️ Password must contain at least 1 special character";
+    passwordError.style.color = "red";
+  } else {
+    passwordError.textContent = "✅ Strong password";
+    passwordError.style.color = "green";
+  }
+
+  checkPasswordMatch();
+});
+
+// Password confirmation
+passwordConfirm.addEventListener("input", checkPasswordMatch);
+
+function checkPasswordMatch() {
+  const pwd2 = passwordInput.value;
+  const confirmPwd = passwordConfirm.value;
+
+  if (confirmPwd.length === 0) {
+    passwordConfirmError.textContent = "✳️ Please confirm your password";
+    passwordConfirmError.style.color = "red";
+  } else if (confirmPwd !== pwd2) {
+    passwordConfirmError.textContent = "✳️ Passwords do not match";
+    passwordConfirmError.style.color = "red";
+  } else {
+    passwordConfirmError.textContent = "✅ Passwords match";
+    passwordConfirmError.style.color = "green";
+  }
+}
+function hasUpperCase(str) {
+  return /[A-Z]/.test(str);
+}
+function hasEnoughLowerCase(str) {
+  const match = str.match(/[a-z]/g);
+  return match && match.length >= 4;
+}
+
+function hasEnoughDigits(str) {
+  const match = str.match(/\d/g);
+  return match && match.length >= 3;
+}
+
+function hasSpecialCharacter(str) {
+  return /[^a-zA-Z0-9]/.test(str);
+}
+
+document.getElementById("myForm").addEventListener("submit", (e) => {
+  if (
+    // nameError.style.color === "red" ||
+    emailError.style.color === "red" ||
+    passwordError.style.color === "red" ||
+    passwordConfirmError.style.color === "red"
+  ) {
+    e.preventDefault();
+    alert("❌ Please correct the highlighted errors before submitting.");
+  }
+});
