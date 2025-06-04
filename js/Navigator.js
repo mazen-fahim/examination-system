@@ -1,4 +1,3 @@
-import { app } from "./main.js";
 import { NavPoint } from "./NavPoint.js";
 // ui component.
 class Navigator {

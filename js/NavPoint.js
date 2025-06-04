@@ -1,4 +1,4 @@
-import { app } from "./main.js";
+import { app } from "./App.js";
 class NavPoint {
   constructor(parent_div, id) {
     this.id = id;
@@ -6,7 +6,7 @@ class NavPoint {
     this.div.setAttribute("id", id);
     parent_div.appendChild(this.div);
     this.div.addEventListener("click", () => {
-      app.question_number = this.id;
+      app.draw = this.id;
     });
   }
 
@@ -39,6 +39,7 @@ class NavPoint {
           "relative before:absolute before:bg-orange-500 before:h-2 before:w-2 before:rounded-full before:-top-3 before:left-1/2 before:-translate-x-1/2 before:transition-all before:duration-200";
         break;
       case "answered_flagged":
+        console.log("hiiiii");
         styles.push("bg-accent");
         this.div.className +=
           "relative before:absolute before:bg-orange-500 before:h-2 before:w-2 before:rounded-full before:-top-3 before:left-1/2 before:-translate-x-1/2 before:transition-all before:duration-200";

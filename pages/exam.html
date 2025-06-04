@@ -14,7 +14,94 @@
   </head>
   <body>
     <div
-      class="flex justify-center items-center min-h-screen w-screen bg-green-50"
+      id="popup-modal"
+      tabindex="-1"
+      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+    >
+      <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow-sm">
+          <div class="p-4 md:p-5 text-center">
+            <svg
+              class="mx-auto mb-4 text-orange-500 w-12 h-12"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <h3 class="mb-5 text-xl text-gray-900">
+              Are you sure you want to submit?
+              <br />
+              <p id="modal_message" class="text-lg text-gray-900"></p>
+            </h3>
+            <button
+              id="yes_button"
+              type="button"
+              class="text-lg text-white bg-accent hover:bg-accent-darker focus:outline-none rounded-lg font-semibold inline-flex items-center px-5 py-2 text-center"
+            >
+              Yes
+            </button>
+            <button
+              id="no_button"
+              type="button"
+              class="text-lg py-2 px-5 ms-3 text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="result-modal"
+      tabindex="-1"
+      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+    >
+      <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow-sm">
+          <div class="p-4 md:p-5 text-center">
+            <svg
+              class="mx-auto mb-4 text-orange-500 w-12 h-12"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <h3 class="mb-5 text-xl text-gray-900">
+              Your Result. 📝
+              <br />
+              <p id="result_message" class="text-lg text-gray-900"></p>
+            </h3>
+            <button
+              id="ok_button"
+              type="button"
+              class="text-lg text-white bg-accent hover:bg-accent-darker focus:outline-none rounded-lg font-semibold inline-flex items-center px-5 py-2 text-center"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="main"
+      class="flex justify-center items-center min-h-screen w-screen bg-emerald-50"
     >
       <div
         class="min-h-screen sm:min-h-3/4 rounded-lg flex flex-col items-center justify-between sm:gap-12 w-full sm:w-4/5 sm:shadow-gray-500 sm:shadow-lg"
@@ -26,7 +113,7 @@
           >
             <p
               id="timer"
-              class="animate-pulse duration-[9000ms] text-2xl font-semibold text-white"
+              class="animate-pulse duration-1000 text-2xl font-semibold text-white"
             ></p>
             <p id="exam_title" class="text-2xl font-semibold text-white"></p>
             <button>
@@ -57,7 +144,7 @@
                 />
                 <label
                   for="answer1"
-                  class="py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-md peer-checked:shadow-inner peer-checked:border-accent peer-checked:border-2"
+                  class="relative after:transition-all after:duration-200 after:h-2 after:w-0 after:absolute after:bottom-0 after:left-0 after:bg-accent peer-checked:after:w-full peer-checked:text-accent-darker py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-sm peer-checked:shadow-inner"
                 >
                 </label>
               </div>
@@ -70,7 +157,7 @@
                 />
                 <label
                   for="answer2"
-                  class="py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-md peer-checked:shadow-inner peer-checked:border-accent peer-checked:border-2"
+                  class="relative after:transition-all after:duration-200 after:h-2 after:w-0 after:absolute after:bottom-0 after:left-0 after:bg-accent peer-checked:after:w-full peer-checked:text-accent-darker py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-sm peer-checked:shadow-inner"
                 >
                 </label>
               </div>
@@ -83,7 +170,7 @@
                 />
                 <label
                   for="answer3"
-                  class="py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-md peer-checked:shadow-inner peer-checked:border-accent peer-checked:border-2"
+                  class="relative after:transition-all after:duration-200 after:h-2 after:w-0 after:absolute after:bottom-0 after:left-0 after:bg-accent peer-checked:after:w-full peer-checked:text-accent-darker py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-sm peer-checked:shadow-inner"
                 >
                 </label>
               </div>
@@ -96,7 +183,7 @@
                 />
                 <label
                   for="answer4"
-                  class="py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-md peer-checked:shadow-inner peer-checked:border-accent peer-checked:border-2"
+                  class="relative after:transition-all after:duration-200 after:h-2 after:w-0 after:absolute after:bottom-0 after:left-0 after:bg-accent peer-checked:after:w-full peer-checked:text-accent-darker py-4 rounded-lg w-full text-center text-gray-900 text-lg p-2 shadow-sm peer-checked:shadow-inner"
                 >
                 </label>
               </div>
@@ -124,7 +211,7 @@
             <button
               id="next"
               type="button"
-              class="rounded-r-lg bg-accent hover:bg-accent-darker hover:cursor-pointer px-2 text-white font-semibold text-2xl transition-colors duration-200"
+              class="rounded-r-lg bg-teal-500 hover:bg-accent-darker hover:cursor-pointer px-2 text-white font-semibold text-2xl transition-colors duration-200"
             >
               >
             </button>
@@ -143,6 +230,6 @@
         </div>
       </div>
     </div>
-    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/App.js"></script>
   </body>
 </html>
