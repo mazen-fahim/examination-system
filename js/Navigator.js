@@ -8,12 +8,17 @@ class Navigator {
       this.navPoints.push(new NavPoint(this.div, i + 1));
     }
     let initial_states = Array(number_of_questions).fill("not_answered");
-    this.draw(1, initial_states);
+    this.draw(1, initial_states, false, Array(number_of_questions).fill(0));
   }
 
-  draw(question_number, question_states) {
+  draw(question_number, question_states, exam_finished, student_mark) {
     this.navPoints.map((navPoint, index) => {
-      navPoint.draw(question_number, question_states[index]);
+      navPoint.draw(
+        question_number,
+        question_states[index],
+        exam_finished,
+        student_mark[index],
+      );
     });
   }
 }

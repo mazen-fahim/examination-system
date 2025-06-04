@@ -27,6 +27,10 @@ class App {
     this.unanswered_count = 0;
 
     // All questions are not answered when we start (All zeros)
+    // 1 -> first answer
+    // 2 -> second answer
+    // 3 -> third answer
+    // 4 -> fourth answer
     this.student_answers = Array(
       this.#exams[this.#exam_no - 1].questions.length,
     ).fill(0);
@@ -56,6 +60,7 @@ class App {
     this.bound_yes_button_handler = this.yes_button_handler.bind(this);
     this.bound_ok_button_handler = this.ok_button_handler.bind(this);
     this.bound_timer_handler = this.timer_handler.bind(this);
+    this.bound_navpoint_handler = this.navpoint_handler.bind(this);
 
     this.navigator = new Navigator(this.number_of_questions_of_current_exam);
     this.attach_handlers_to_event_listeners();
@@ -64,86 +69,8 @@ class App {
 
   set current_question_number(value) {
     this.#question_no = value;
-    // update the question number ui
-    document.getElementById("question_number").innerHTML = value; // set the number
-    document.getElementById("question_num").innerHTML = `Q${value}:`; // set the number
-    // update the question title ui
-    let title = this.#exams[this.#exam_no - 1].questions[value - 1].title;
-    document.getElementById("question_title").innerHTML = title;
-    // update the question answeres ui
-    let answers = this.#exams[this.#exam_no - 1].questions[value - 1].answers;
-    answers.map((answer, index) => {
-      let label = document.querySelector(`label[for="answer${index + 1}"]`);
-      label.innerHTML = answer;
-    });
-
-    // update the flag ui
-    let state = this.current_question_state;
-    if (state == "answered_flagged" || state == "not_answered_flagged") {
-      let flag = document.getElementById("flag");
-      flag.classList.remove("text-white");
-      flag.classList.add("text-orange-500");
-    } else {
-      let flag = document.getElementById("flag");
-      flag.classList.add("text-white");
-      flag.classList.remove("text-orange-500");
-    }
-
-    this.navigator.draw(
-      this.current_question_number,
-      this.current_exam_questions_states,
-    );
-
-    // update the ui of previous button
-    if (this.#question_no == 1) {
-      document.getElementById("prev").classList.add("invisible");
-    } else {
-      document.getElementById("prev").classList.remove("invisible");
-    }
-    // update the ui of next button
-    if (this.#question_no == this.number_of_questions_of_current_exam) {
-      document.getElementById("next").classList.add("invisible");
-    } else {
-      document.getElementById("next").classList.remove("invisible");
-    }
-
-    // update the checked radio for the current question
-    // if it was answered before check what was checked
-    // if it was never answered uncheck all readios
-    // NOTE: Checking the radio programatically won't fire
-    // an event
-    let student_answer_number = this.student_answers[this.#question_no - 1];
-    for (let i = 1; i <= 4; i++) {
-      let radio = document.getElementById(`answer${i}`);
-      if (student_answer_number == i) {
-        radio.checked = true;
-      } else {
-        radio.checked = false;
-      }
-    }
-
-    // // only draw the result if the exam finished
-    // if (this.exam_finished == true) {
-    //   if (
-    //     this.current_question_correct_answer ==
-    //     this.student_answer_for_current_question
-    //   ) {
-    //     let label = document.querySelector(
-    //       `label[for="answer${this.student_answer_for_current_question}"]`,
-    //     );
-    //     label.classList.add("bg-accent", "before:hidden");
-    //     label.classList.remove("text-accent", "text-gray-900");
-    //     label.classList.add("text-white");
-    //   } else {
-    //     let label = document.querySelector(
-    //       `label[for="answer${this.student_answer_for_current_question}"]`,
-    //     );
-    //     label.classList.add("bg-red-500", "before:hidden");
-    //     label.classList.remove("text-accent", "text-gray-900");
-    //     label.classList.add("text-white");
-    //   }
-    // }
-    // ro7 pl8 kol elly yhmo
+    console.log(value);
+    this.draw();
   }
 
   // if we have moved to the result page let every one know
@@ -173,6 +100,8 @@ class App {
     this.navigator.draw(
       this.current_question_number,
       this.current_exam_questions_states,
+      this.exam_finished,
+      this.student_mark,
     );
   }
 
@@ -241,6 +170,111 @@ class App {
     return this.student_answers[this.#question_no - 1];
   }
 
+  // returns
+  // "correct"
+  // "wrong"
+  // "not answered"
+  get student_mark_for_current_question() {
+    if (this.student_mark[this.#question_no - 1] == 0) return "not answered";
+    else if (this.student_mark[this.#question_no - 1] == 1) return "correct";
+    else if (this.student_mark[this.#question_no - 1] == 2) return "wrong";
+  }
+
+  // DRAW UI
+  draw() {
+    // update the question number ui
+    document.getElementById("question_number").innerHTML = this.#question_no; // set the number
+    document.getElementById("question_num").innerHTML =
+      `Q${this.#question_no}:`; // set the number
+    // update the question title ui
+    let title =
+      this.#exams[this.#exam_no - 1].questions[this.#question_no - 1].title;
+    document.getElementById("question_title").innerHTML = title;
+    // update the question answeres ui
+    let answers =
+      this.#exams[this.#exam_no - 1].questions[this.#question_no - 1].answers;
+    answers.map((answer, index) => {
+      let label = document.querySelector(`label[for="answer${index + 1}"]`);
+      label.innerHTML = answer;
+    });
+
+    // update the flag ui
+    let state = this.current_question_state;
+    if (state == "answered_flagged" || state == "not_answered_flagged") {
+      let flag = document.getElementById("flag");
+      flag.classList.remove("text-white");
+      flag.classList.add("text-orange-500");
+    } else {
+      let flag = document.getElementById("flag");
+      flag.classList.add("text-white");
+      flag.classList.remove("text-orange-500");
+    }
+
+    this.navigator.draw(
+      this.current_question_number,
+      this.current_exam_questions_states,
+      this.exam_finished,
+      this.student_mark,
+    );
+
+    // update the ui of previous button
+    if (this.#question_no == 1) {
+      document.getElementById("prev").classList.add("invisible");
+    } else {
+      document.getElementById("prev").classList.remove("invisible");
+    }
+    // update the ui of next button
+    if (this.#question_no == this.number_of_questions_of_current_exam) {
+      document.getElementById("next").classList.add("invisible");
+    } else {
+      document.getElementById("next").classList.remove("invisible");
+    }
+
+    // update the checked radio for the current question
+    // if it was answered before check what was checked
+    // if it was never answered uncheck all readios
+    // NOTE: Checking the radio programatically won't fire
+    // an event
+    let student_answer_number = this.student_answers[this.#question_no - 1];
+    for (let i = 1; i <= 4; i++) {
+      let radio = document.getElementById(`answer${i}`);
+      if (student_answer_number == i) {
+        radio.checked = true;
+      } else {
+        radio.checked = false;
+      }
+    }
+
+    // only draw the marks if the exam finished
+    if (this.exam_finished == true) {
+      // Draw the mark icon
+      let mark_icon = document.querySelector("#mark>i");
+      console.log(mark_icon);
+      if (
+        this.student_mark_for_current_question == "not answered" ||
+        this.student_mark_for_current_question == "wrong"
+      ) {
+        mark_icon.classList.remove("fa-check");
+        mark_icon.classList.remove("text-accent");
+        mark_icon.classList.add("text-red-500");
+        mark_icon.classList.add("fa-xmark");
+      } else if (this.student_mark_for_current_question == "correct") {
+        mark_icon.classList.add("fa-check");
+        mark_icon.classList.add("text-accent");
+        mark_icon.classList.remove("text-red-500");
+        mark_icon.classList.remove("fa-xmark");
+      }
+
+      // Draw the navigator
+      this.navigator.draw(
+        this.current_question_number,
+        this.current_exam_questions_states,
+        this.exam_finished,
+        this.student_mark,
+      );
+    }
+  }
+
   // ATTACH HANDLERS
   attach_handlers_to_event_listeners() {
     document
@@ -276,6 +310,11 @@ class App {
     document
       .getElementById("ok_button")
       .addEventListener("click", this.bound_ok_button_handler);
+
+    let navpoints = document.querySelectorAll("#navigator div");
+    navpoints.forEach((navpoint) => {
+      navpoint.addEventListener("click", this.bound_navpoint_handler);
+    });
 
     this.timer = setInterval(this.bound_timer_handler, 1000);
   }
@@ -419,6 +458,10 @@ class App {
     let btn = document.getElementById("sub");
     btn.innerText = "Show Result";
     btn.addEventListener("click", this.bound_show_result_button_handler);
+
+    // 5. show the mark icon
+    document.getElementById("mark").classList.remove("hidden");
+    this.draw();
   }
 
   show_result_button_handler() {
@@ -438,6 +481,13 @@ class App {
     modal.classList.add("hidden");
     modal.classList.remove("flex");
     document.getElementById("main").classList.remove("blur");
+  }
+
+  navpoint_handler(event) {
+    console.log(event);
+    let navpoint_number = event.target.getAttribute("id");
+    console.log(this);
+    this.current_question_number = parseInt(navpoint_number);
   }
 }
 
