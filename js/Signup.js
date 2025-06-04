@@ -1,3 +1,5 @@
+valid_form = false;
+
 class UI {
   constructor() {
     // Set initial state
@@ -27,6 +29,32 @@ class UI {
 
     document.getElementById("professor").addEventListener("click", () => {
       this.selected_type = "professor";
+    });
+
+    document.getElementById("finish").addEventListener("click", () => {
+      if (!valid_form) {
+        document.getElementById("submit-feedback").classList.remove("hidden");
+        return;
+      } else {
+        document.getElementById("submit-feedback").classList.add("hidden");
+        let users = localStorage.getItem("users");
+        if (users) {
+          users = JSON.parse(users);
+        } else {
+          users = [];
+        }
+        let user = {};
+        user["email"] = document.getElementById("email").value;
+        user["password"] = document.getElementById("password").value;
+        user["firstName"] = document.getElementById("first_name").value;
+        user["lastName"] = document.getElementById("last_name").value;
+        user["year"] = document.getElementById("year").value;
+        user["fieldOfStudy"] = document.getElementById("field_of_study").value;
+        user["gender"] = document.getElementById("gender").value;
+        users.push(user);
+        localStorage.setItem("users", JSON.stringify(users));
+        window.location.assign("../index.html");
+      }
     });
   }
 
@@ -91,10 +119,6 @@ class UI {
 let ui = new UI();
 
 // Signup Page Validation
-
-// const nameInput = document.getElementById("name");
-// const nameError = document.getElementById("name-error");
-
 const emailInput = document.getElementById("email");
 const emailError = document.getElementById("email-error");
 
@@ -104,92 +128,140 @@ const passwordError = document.getElementById("password-error");
 const passwordConfirm = document.getElementById("password-confirm");
 const passwordConfirmError = document.getElementById("password-confirm-error");
 
+const firstNameInput = document.getElementById("first_name");
+const firstNameError = document.getElementById("first-name-error");
+
+const lastNameInput = document.getElementById("last_name");
+const lastNameError = document.getElementById("last-name-error");
+
 // Name validation
-// nameInput.addEventListener("input", () => {
-//   const nameVal = nameInput.value.trim();
-//   const nameReg = /^([a-zA-Z]{3,15})(\s[a-zA-Z]{3,15})*$/;
-//
-//   if (nameVal.length === 0) {
-//     nameError.textContent = "✳️ Name cannot be empty";
-//     nameError.style.color = "red";
-//   } else if (!nameReg.test(nameVal)) {
-//     nameError.textContent =
-//       "✳️ Enter a valid name (at least 3 letters per word, letters only)";
-//     nameError.style.color = "red";
-//   } else if (nameVal.length > 50) {
-//     nameError.textContent = "✳️ Name must not exceed 50 characters";
-//     nameError.style.color = "red";
-//   } else {
-//     nameError.textContent = "✅ Valid name";
-//     nameError.style.color = "green";
-//   }
-// });
+firstNameInput.addEventListener("input", () => {
+  const firstNameVal = firstNameInput.value.trim();
+  const firstNameReg = /^([a-zA-Z]{3,15})(\s[a-zA-Z]{3,15})*$/;
+
+  if (firstNameVal.length === 0) {
+    valid_form = false;
+    firstNameError.textContent = "✳️ name can not be empty";
+    firstNameError.style.color = "var(--color-orange-700)";
+  } else if (!firstNameReg.test(firstNameVal)) {
+    valid_form = false;
+    firstNameError.textContent =
+      "✳️ Enter a valid name (at least 3 letters per word, letters only)";
+    firstNameError.style.color = "var(--color-orange-700)";
+  } else if (firstNameVal.length > 50) {
+    valid_form = false;
+    firstNameError.textContent = "✳️ name must not exceed 50 characters";
+    firstNameError.style.color = "var(--color-orange-700)";
+  } else {
+    valid_form = true;
+    firstNameError.textContent = "✅ Valid name";
+    firstNameError.style.color = "var(--color-accent)";
+  }
+});
+
+lastNameInput.addEventListener("input", () => {
+  const lastNameVal = lastNameInput.value.trim();
+  const lastNameReg = /^([a-zA-Z]{3,15})(\s[a-zA-Z]{3,15})*$/;
+
+  if (lastNameVal.length === 0) {
+    valid_form = false;
+    lastNameError.textContent = "✳️ name can not be empty";
+    lastNameError.style.color = "var(--color-orange-700)";
+  } else if (!lastNameReg.test(lastNameVal)) {
+    valid_form = false;
+    lastNameError.textContent =
+      "✳️ Enter a valid name (at least 3 letters per word, letters only)";
+    lastNameError.style.color = "var(--color-orange-700)";
+  } else if (lastNameVal.length > 50) {
+    valid_form = false;
+    lastNameError.textContent = "✳️ name must not exceed 50 characters";
+    lastNameError.style.color = "var(--color-orange-700)";
+  } else {
+    valid_form = true;
+    lastNameError.textContent = "✅ Valid name";
+    lastNameError.style.color = "var(--color-accent)";
+  }
+});
 
 // Email validation
 emailInput.addEventListener("input", () => {
   const email = emailInput.value.trim();
   if (email.length === 0) {
+    valid_form = false;
     emailError.textContent = "✳️ Email cannot be empty";
-    emailError.style.color = "red";
+    emailError.style.color = "var(--color-orange-700)";
   } else if (!/^[a-zA-Z]/.test(email)) {
+    valid_form = false;
     emailError.textContent = "✳️ Email must start with a letter";
-    emailError.style.color = "red";
+    emailError.style.color = "var(--color-orange-700)";
   } else if (!/@/.test(email)) {
+    valid_form = false;
     emailError.textContent = "✳️ Email must contain '@'";
-    emailError.style.color = "red";
+    emailError.style.color = "var(--color-orange-700)";
   } else {
     const parts = email.split("@");
     const localPart = parts[0];
     const domainPart = parts[1];
 
     if (localPart.length < 4) {
+      valid_form = false;
       emailError.textContent =
         "✳️ Email username must be at least 4 characters";
-      emailError.style.color = "red";
+      emailError.style.color = "var(--color-orange-700)";
     } else if (!/[0-9]/.test(localPart)) {
+      valid_form = false;
       emailError.textContent =
         "✳️ Email must contain at least one number before '@'";
-      emailError.style.color = "red";
+      emailError.style.color = "var(--color-orange-700)";
     } else if (!/\w+\.(com|net|org|edu(\.eg)?|gov|info)$/.test(domainPart)) {
+      valid_form = false;
       emailError.textContent =
         "✳️ Email must have a valid domain like gmail.com or edu.eg";
-      emailError.style.color = "red";
+      emailError.style.color = "var(--color-orange-700)";
     } else {
+      valid_form = true;
       emailError.textContent = "✅ Valid email";
-      emailError.style.color = "green";
+      emailError.style.color = "var(--color-accent)";
     }
   }
 });
 
 // Password validation
 passwordInput.addEventListener("input", () => {
-  const pwd2 = passwordInput.value;
+  const password_value = passwordInput.value;
 
-  if (pwd2.length === 0) {
+  if (password_value.length === 0) {
+    valid_form = false;
     passwordError.textContent = "✳️ Password cannot be empty";
-    passwordError.style.color = "red";
-  } else if (pwd2.length < 8) {
+    passwordError.style.color = "var(--color-orange-700)";
+  } else if (password_value.length < 8) {
+    valid_form = false;
     passwordError.textContent =
       "✳️ Password must be at least 8 characters long";
-    passwordError.style.color = "red";
-  } else if (!hasEnoughLowerCase(pwd2)) {
+    passwordError.style.color = "var(--color-orange-700)";
+  } else if (!hasEnoughLowerCase(password_value)) {
+    valid_form = false;
     passwordError.textContent =
       "✳️ Password must contain at least 4 lowercase letters";
-    passwordError.style.color = "red";
-  } else if (!hasUpperCase(pwd2)) {
+    passwordError.style.color = "var(--color-orange-700)";
+  } else if (!hasUpperCase(password_value)) {
+    valid_form = false;
     passwordError.textContent =
       "✳️ Password must contain at least 1 uppercase letter";
-    passwordError.style.color = "red";
-  } else if (!hasEnoughDigits(pwd2)) {
+    passwordError.style.color = "var(--color-orange-700)";
+  } else if (!hasEnoughDigits(password_value)) {
+    valid_form = false;
     passwordError.textContent = "✳️ Password must contain at least 3 digits";
-    passwordError.style.color = "red";
-  } else if (!hasSpecialCharacter(pwd2)) {
+    passwordError.style.color = "var(--color-orange-700)";
+  } else if (!hasSpecialCharacter(password_value)) {
+    valid_form = false;
     passwordError.textContent =
       "✳️ Password must contain at least 1 special character";
-    passwordError.style.color = "red";
+    passwordError.style.color = "var(--color-orange-700)";
   } else {
+    valid_form = true;
     passwordError.textContent = "✅ Strong password";
-    passwordError.style.color = "green";
+    passwordError.style.color = "var(--color-accent)";
   }
 
   checkPasswordMatch();
@@ -199,18 +271,21 @@ passwordInput.addEventListener("input", () => {
 passwordConfirm.addEventListener("input", checkPasswordMatch);
 
 function checkPasswordMatch() {
-  const pwd2 = passwordInput.value;
-  const confirmPwd = passwordConfirm.value;
+  const password_value = passwordInput.value;
+  const password_confirm_value = passwordConfirm.value;
 
-  if (confirmPwd.length === 0) {
+  if (password_confirm_value.length === 0) {
+    valid_form = false;
     passwordConfirmError.textContent = "✳️ Please confirm your password";
-    passwordConfirmError.style.color = "red";
-  } else if (confirmPwd !== pwd2) {
+    passwordConfirmError.style.color = "var(--color-orange-700)";
+  } else if (password_confirm_value !== password_value) {
+    valid_form = false;
     passwordConfirmError.textContent = "✳️ Passwords do not match";
-    passwordConfirmError.style.color = "red";
+    passwordConfirmError.style.color = "var(--color-orange-700)";
   } else {
+    valid_form = true;
     passwordConfirmError.textContent = "✅ Passwords match";
-    passwordConfirmError.style.color = "green";
+    passwordConfirmError.style.color = "var(--color-accent)";
   }
 }
 function hasUpperCase(str) {
@@ -229,15 +304,3 @@ function hasEnoughDigits(str) {
 function hasSpecialCharacter(str) {
   return /[^a-zA-Z0-9]/.test(str);
 }
-
-document.getElementById("myForm").addEventListener("submit", (e) => {
-  if (
-    // nameError.style.color === "red" ||
-    emailError.style.color === "red" ||
-    passwordError.style.color === "red" ||
-    passwordConfirmError.style.color === "red"
-  ) {
-    e.preventDefault();
-    alert("❌ Please correct the highlighted errors before submitting.");
-  }
-});

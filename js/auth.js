@@ -15,15 +15,15 @@ emailInput.addEventListener("input", () => {
   const email = emailInput.value.trim();
   if (email.length === 0) {
     emailError.textContent = "✳️ Email cannot be empty";
-    emailError.style.color = "red";
+    emailError.style.color = "var(--color-orange-700)";
     correct_email = false;
   } else if (!/^[a-zA-Z]/.test(email)) {
     emailError.textContent = "✳️ Email must start with a letter";
-    emailError.style.color = "red";
+    emailError.style.color = "var(--color-orange-700)";
     correct_email = false;
   } else if (!/@/.test(email)) {
     emailError.textContent = "✳️ Email must contain '@'";
-    emailError.style.color = "red";
+    emailError.style.color = "var(--color-orange-700)";
     correct_email = false;
   } else {
     const parts = email.split("@");
@@ -32,12 +32,12 @@ emailInput.addEventListener("input", () => {
     if (localPart.length < 4) {
       emailError.textContent =
         "✳️ Email username must be at least 4 characters";
-      emailError.style.color = "red";
+      emailError.style.color = "var(--color-orange-700)";
       correct_email = false;
     } else if (!/\w+\.(com|net|org|edu(\.eg)?|gov|info)$/.test(domainPart)) {
       emailError.textContent =
         "✳️ Email must have a valid domain like gmail.com or edu.eg";
-      emailError.style.color = "red";
+      emailError.style.color = "var(--color-orange-700)";
       correct_email = false;
     } else {
       emailError.textContent = "✅ Valid email";
@@ -48,7 +48,7 @@ emailInput.addEventListener("input", () => {
 });
 
 document
-  .querySelector('input[value="submit"]')
+  .querySelector('input[value="Sign in"]')
   .addEventListener("click", () => {
     // check that the inputs are valid
     if (correct_email) {
@@ -84,12 +84,12 @@ document
         if (!user_found) {
           // UPdate the ui to notify him about email doesn't exist
           document.getElementById("submit-feedback").innerText =
-            "Email is not registered!";
+            "Email is not registe";
           return;
         }
       } else {
         document.getElementById("submit-feedback").innerText =
-          "Email is not registered!";
+          "Email is not registered";
         return;
       }
     }
